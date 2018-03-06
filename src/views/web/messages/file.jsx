@@ -13,7 +13,7 @@ class FileMessage extends Component {
   renderLocalFile() {
     return (
       <div className={style.otherFile}>
-        <div>{this.props.file.name} (local)</div>
+        <div>{this.props.file.originalname}</div>
       </div>
     )
   }

@@ -21,7 +21,7 @@ class QuickReply extends Component {
     }
 
     this.props.onFileUploadSend &&
-      this.props.onFileUploadSend(this.props.title, this.props.payload, event.target.files[0])
+    this.props.onFileUploadSend(this.props.title, this.props.payload, event.target.files)
   }
 
   renderFileUpload(accept) {
@@ -41,6 +41,7 @@ class QuickReply extends Component {
           className={style.filePicker}
           placeholder={this.props.title}
           onChange={::this.handleFileUpload}
+          multiple
         />
       </button>
     )

@@ -20,8 +20,11 @@ const ERR_CONV_ID_REQ = '`conversationId` is required and must be valid'
 module.exports = async (bp, config) => {
   const diskStorage = multer.diskStorage({
     limits: {
-      files: 1,
+      files: 4,
       fileSize: 5242880 // 5MB
+    },
+    destination: function (req, file, cb) {
+      cb(null, path.join(bp.projectLocation, 'data/uploads'))
     },
     filename: function(req, file, cb) {
       const userId = _.get(req, 'params.userId') || 'anonymous'
@@ -136,7 +139,7 @@ module.exports = async (bp, config) => {
   // ?conversationId=xxx (required)
   router.post(
     '/messages/:userId/files',
-    upload.single('file'),
+    upload.array('file', 4),
     asyncApi(async (req, res) => {
       const { userId } = req.params || {}
 
@@ -154,15 +157,19 @@ module.exports = async (bp, config) => {
       }
 
       const payload = {
-        text: `Uploaded a file [${req.file.originalname}]`,
-        type: 'file',
-        data: {
-          storage: req.file.location ? 's3' : 'local',
-          url: req.file.location || null,
-          name: req.file.originalname,
-          mime: req.file.contentType || req.file.mimetype,
-          size: req.file.size
-        }
+        text: `got some filez yo`,
+        type: 'files',
+        data: req.files.map(f => {
+          return {
+            storage: f.location ? 's3' : 'local',
+            url: f.location || null,
+            name: f.filename,
+            originalname: f.originalname,
+            path: f.path,
+            mime: f.contentType || f.mimetype,
+            size: f.size
+          }
+        })
       }
 
       await sendNewMessage(userId, conversationId, payload)

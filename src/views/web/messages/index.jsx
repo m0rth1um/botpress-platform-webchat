@@ -276,6 +276,12 @@ class Message extends Component {
     return <FileMessage file={this.props.data.message_data} />
   }
 
+  render_files() {
+    return this.props.data.message_data.map((f) =>
+      <FileMessage file={f}/>
+    )
+  }
+
   render_custom() {
     const type = (this.props.data.message_raw.custom_type || '').substring(1)
     const Plugin = ((window.botpress || {})[type] || {})['Plugin']

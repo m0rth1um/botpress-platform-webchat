@@ -386,13 +386,15 @@ export default class Web extends React.Component {
     })
   }
 
-  handleFileUploadSend(title, payload, file) {
+  handleFileUploadSend(title, payload, files) {
     const userId = window.__BP_VISITOR_ID
     const url = `${BOT_HOSTNAME}/api/botpress-platform-webchat/messages/${userId}/files`
     const config = { params: { conversationId: this.state.currentConversationId } }
 
     let data = new FormData()
-    data.append('file', file)
+    for (let i = 0; i < files.length; i++) {
+      data.append('file', files.item(i))
+    }
 
     return this.props.bp.axios.post(url, data, config).then()
   }

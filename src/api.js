@@ -21,7 +21,7 @@ module.exports = async (bp, config) => {
   const diskStorage = multer.diskStorage({
     limits: {
       files: 4,
-      fileSize: 5242880 // 5MB
+      fileSize: 8388608 // 8MB
     },
     destination: function (req, file, cb) {
       cb(null, path.join(bp.projectLocation, 'data/uploads'))

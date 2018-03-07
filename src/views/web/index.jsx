@@ -25,8 +25,6 @@ if (!window.location.origin) {
 const BOT_HOSTNAME = window.location.origin
 const ANIM_DURATION = 300
 
-const MIN_TIME_BETWEEN_SOUNDS = 10000 // 10 seconds
-
 const defaultOptions = {
   locale: 'en-US',
   botName: 'Bot',
@@ -291,8 +289,6 @@ export default class Web extends React.Component {
 
     // there's no focus on the actual conversation
     if ((document.hasFocus && !document.hasFocus()) || this.state.view !== 'side') {
-      this.playSound()
-
       if (addToUnread) {
         this.increaseUnreadCount()
       }
@@ -304,24 +300,6 @@ export default class Web extends React.Component {
 
     if (newConvo) {
       this.setState({ currentConversation: newConvo })
-    }
-  }
-
-  playSound() {
-    if (!this.state.played && this.state.view !== 'convo') {
-      // TODO: Remove this condition (view !== 'convo') and fix transition sounds
-      const audio = new Audio('/api/botpress-platform-webchat/static/notification.mp3')
-      audio.play()
-
-      this.setState({
-        played: true
-      })
-
-      setTimeout(() => {
-        this.setState({
-          played: false
-        })
-      }, MIN_TIME_BETWEEN_SOUNDS)
     }
   }
 

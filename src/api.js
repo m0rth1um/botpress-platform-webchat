@@ -6,7 +6,6 @@ import aws from 'aws-sdk'
 
 import injectScript from 'raw-loader!./inject.js'
 import injectStyle from 'raw-loader!./inject.css'
-import notificationSound from 'raw-loader!../static/notification.mp3'
 
 import serveStatic from 'serve-static'
 

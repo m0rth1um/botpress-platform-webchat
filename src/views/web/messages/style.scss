@@ -399,6 +399,31 @@
   }
 }
 
+/* mixin for multiline */
+@mixin multiLineEllipsis($lineHeight: 1.2em, $lineCount: 1){
+  overflow: hidden;
+  position: relative;
+  line-height: $lineHeight;
+  max-height: $lineHeight * $lineCount;
+  text-align: justify;
+  margin-right: -1em;
+  padding-right: 1em;
+  &:before {
+    content: '...';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    right: 0;
+    width: 1em;
+    height: 1em;
+    margin-top: 0.2em;
+  }
+}
+
 .quickReplyContainer {
   box-sizing: border-box;
   display: block;
@@ -410,16 +435,20 @@
     margin: 3px 2px;
     cursor: pointer;
     text-transform: none;
-    overflow: visible;
+    //overflow: visible;
     align-items: flex-start;
 
     &.bubble {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
       box-shadow: none;
       background-color: rgba(255, 255, 255, 0.9);
       font-size: 1rem;
       padding: 0.4rem 0.8rem;
       width: initial;
       min-width: 5rem;
+      max-width: 20rem;
       height: 40px;
       text-align: center;
       border: 1px solid currentColor;

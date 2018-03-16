@@ -19,7 +19,6 @@ const ERR_CONV_ID_REQ = '`conversationId` is required and must be valid'
 module.exports = async (bp, config) => {
   const diskStorage = multer.diskStorage({
     limits: {
-      files: 4,
       fileSize: 8388608 // 8MB
     },
     destination: function (req, file, cb) {
@@ -138,7 +137,7 @@ module.exports = async (bp, config) => {
   // ?conversationId=xxx (required)
   router.post(
     '/messages/:userId/files',
-    upload.array('file', 4),
+    upload.array('file'),
     asyncApi(async (req, res) => {
       const { userId } = req.params || {}
 

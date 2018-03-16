@@ -51,7 +51,7 @@ class QuickReply extends Component {
     const backgroundColor = this.state.hover ? hexToRGBA(this.props.fgColor, 0.07) : hexToRGBA('#ffffff', 0.9)
 
     if (this.props.payload === 'BOTPRESS.IMAGE_UPLOAD') {
-      return this.renderFileUpload('image/*')
+      return this.renderFileUpload('image/jpg, image/jpeg, image/png')
     }
 
     if (this.props.payload === 'BOTPRESS.FILE_UPLOAD') {
